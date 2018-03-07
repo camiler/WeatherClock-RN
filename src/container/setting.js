@@ -28,7 +28,7 @@ const alarmNotifData = {
   fire_date: '05-03-2018 11:08:00'            // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
 };
 
-let aqi_max = 80;
+let aqi_max, clockHour, clockMinute;
 const PEROID = 24 * 60 * 60 * 1000;
 const backgroundSchedule = {
   jobKey: 'pm2.5clock',
@@ -48,7 +48,6 @@ const backgroundJob = {
   job: () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(aqi_max);
         if (position && position.coords) {
           const {longitude, latitude} = position && position.coords;
           const url = `https://api.waqi.info/feed/geo:${latitude};${longitude}/?token=a0921835e79a8010263dea8a071f14febbf595b9`;
@@ -56,7 +55,7 @@ const backgroundJob = {
             console.log(resData);
             if (resData.status === 'ok') {
               const {iaqi, aqi} = resData.data;
-              if (iaqi && iaqi.v <= 80 || aqi <= 80) {
+              if (iaqi && iaqi.v <= aqi_max || aqi <= aqi_max) {
                 resetScheduleAndAlarm();
               }
             } else {
@@ -80,9 +79,9 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      hour: '07',
-      minute: '10',
+      text: aqi_max || '',
+      hour: clockHour || '07',
+      minute: clockMinute || '10',
       modalVisible: false
     };
   }
@@ -97,18 +96,22 @@ export default class Home extends Component {
     if (text) {
       const today = moment().hour(parseInt(hour, 10)).minute(parseInt(minute, 10)).second(0);
       const now = moment(new Date());
-
-      let diff = 0;
-      if (today.isAfter(now)) {
-        diff = Math.abs(now.diff(today));
-      } else {
-        const tomorrow = today.add(1, 'day');
-        diff = tomorrow.diff(now);
-      }
       aqi_max = text;
-      //alarmNotifData.fire_date = tomorrow.format('DD-MM-YYYY HH:MM:SS');
-      backgroundSchedule.period = diff - 30000;
-      BackgroundJob.schedule(backgroundSchedule);
+      if (clockHour !== hour || clockMinute !== minute) {
+        //缓存中时间不一致时修改并重新设置调度
+        clockHour = hour;
+        clockMinute = minute;
+        let diff = 0;
+        if (today.isAfter(now)) {
+          diff = Math.abs(now.diff(today));
+        } else {
+          const tomorrow = today.add(1, 'day');
+          diff = tomorrow.diff(now);
+        }
+        aqi_max = text;
+        backgroundSchedule.period = diff - 30000;
+        BackgroundJob.schedule(backgroundSchedule);
+      }
       this.setState({
         modalVisible: true,
       })
@@ -170,7 +173,7 @@ export default class Home extends Component {
           </View>
         </Modal>
         <TextInput
-          placeholder={String(aqi_max) || '请输入触发闹钟允许的AQI最大值'}
+          placeholder={'请输入触发闹钟允许的AQI最大值'}
           placeholderTextColor="#CCCCCC"
           style={styles.textInput}
           onChangeText={this.textChange}
