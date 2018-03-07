@@ -4,10 +4,10 @@ import { Text, TouchableOpacity } from 'react-native';
 import styles from './style';
 
 const Button = (props) => {
-  const { text, onPress } = props;
+  const { text, onPress, btnTouchStyle, textStyle } = props;
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>
+    <TouchableOpacity style={[styles.button, btnTouchStyle]} onPress={onPress}>
+      <Text style={[styles.buttonText, textStyle]}>
         {text}
       </Text>
     </TouchableOpacity>
@@ -16,6 +16,8 @@ const Button = (props) => {
 
 Button.propTypes = {
   text: PropTypes.string,
+  btnTouchStyle: PropTypes.number,
+  textStyle: PropTypes.number,
   onPress: PropTypes.func,
 };
 

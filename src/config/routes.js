@@ -1,4 +1,4 @@
-import Home from '../container/home';
+import Setting from '../container/setting';
 import Weather from '../container/weather';
 import {Animated, Easing} from 'react-native';
 
@@ -8,10 +8,10 @@ import {Animated, Easing} from 'react-native';
  */
 export const routes = {
   Main: {
-    screen: Home,
+    screen: Weather,
   },
-  Weather: {
-    screen: Weather
+  setting: {
+    screen: Setting
   }
 };
 /**

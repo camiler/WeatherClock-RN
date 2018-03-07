@@ -8,6 +8,7 @@ export const colors = {
   buttonText: '#FFFFFF',
   inputBackground: '#FFFFFF',
   inputDivider: '#E4E2E5',
+  maskBackground: 'rgba(0, 0, 0, .4)',
 };
 
 export const commonStyles = StyleSheet.create({
@@ -17,6 +18,21 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.background,
   },
+  textCenter: {
+    textAlign: 'center',
+  },
+  font20: {
+    fontSize: 20,
+  },
+  font18: {
+    fontSize: 18,
+  },
+  font16: {
+    fontSize: 16,
+  },
+  font14: {
+    fontSize: 14,
+  }
 });
 
 export default {

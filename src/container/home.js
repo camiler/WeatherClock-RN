@@ -50,7 +50,7 @@ const alarmNotifData = {
   color: 'green',
   schedule_once: true,                          // Works with ReactNativeAN.scheduleAlarm so alarm fires once
   tag: 'some_tag',
-  fire_date: '08:00:00'              // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
+  fire_date: '05-03-2018 11:00:00'              // Date for firing alarm, Required for ReactNativeAN.scheduleAlarm. Format: dd-MM-yyyy HH:mm:ss
 };
 
 export default class Home extends Component {
@@ -62,7 +62,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-
+    ReactNativeAN.scheduleAlarm(alarmNotifData);
   }
 
   navigate = () => {
@@ -95,5 +95,5 @@ Home.propTypes = {
 };
 
 Home.navigationOptions = {
-  title: 'home',
+  title: 'PM2.5 CLOCK',
 }

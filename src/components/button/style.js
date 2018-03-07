@@ -3,10 +3,9 @@ import { colors } from '../../config/styles';
 
 export default StyleSheet.create({
   button: {
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingHorizontal: 20,
     backgroundColor: colors.buttonBackground,
-    margin: 5,
   },
   buttonText: {
     color: colors.buttonText,

@@ -5,7 +5,7 @@ const initialState = Map();
 const weather = (state = initialState, action) => {
   switch (action.type) {
     case 'weather_aqi':
-      return state.set('aqi', action.aqi);
+      return state.set('data', Map(action.data));
     default:
       return state;
   }
