@@ -150,7 +150,7 @@ export default class Home extends Component {
 
   render() {
     const {text, hour, minute, modalVisible} = this.state;
-    const aqi = aqi_max ? aqi_max : text;
+
     return (
       <View style={[commonStyles.container, styles.container]}>
         <Modal
@@ -170,11 +170,11 @@ export default class Home extends Component {
           </View>
         </Modal>
         <TextInput
-          placeholder="请输入触发闹钟允许的AQI最大值"
+          placeholder={String(aqi_max) || '请输入触发闹钟允许的AQI最大值'}
           placeholderTextColor="#CCCCCC"
           style={styles.textInput}
           onChangeText={this.textChange}
-          value={aqi}
+          value={text}
           keyboardType="numeric"
           underlineColorAndroid="transparent"
         />
