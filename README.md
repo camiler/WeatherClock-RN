@@ -22,4 +22,4 @@ ios:
 ### 真机运行
 android:     
 1、确认`adb devices`，若报错，确认android sdk platform-tools 下的adb在环境变量PATH中。    
-2、npm run android后，（若BUILD FAILED）在Android Studio中直接运行选择连接机器即可。   
+2、**npm run android**（在真机上重新安装时，需要重新运行打包更新index.android.js）后，（若BUILD FAILED，可以忽略）在Android Studio中直接运行选择连接机器即可。   
