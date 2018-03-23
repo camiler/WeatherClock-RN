@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "es6-promise": "^4.2.4",
     "immutable": "^3.8.2",
     "moment": "^2.21.0",
     "prop-types": "^15.6.0",

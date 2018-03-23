@@ -54,6 +54,16 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
+  },
+  switch: {
+    backgroundColor: '#fff',
+    height: 40,
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: 40,
+    borderRadius: 6,
   }
 });
 
