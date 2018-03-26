@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import {Modal, View, Picker, Text, TouchableHighlight, ToastAndroid, Switch, AsyncStorage, Slider} from 'react-native';
+import {Modal, View, Picker, Text, TouchableHighlight, ToastAndroid, Switch, Slider} from 'react-native';
 import {Button} from '../components/';
 import {commonStyles, colors} from '../config/styles'
 import styles from './setting-style';

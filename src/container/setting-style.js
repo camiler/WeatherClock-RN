@@ -13,17 +13,6 @@ const styles = StyleSheet.create({
   picker: {
     width: 100,
   },
-  textInput: {
-    height: 40,
-    borderBottomColor: 'gray',
-    borderWidth: 1,
-    width: 300,
-    textAlign: 'center',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderTopColor: 'transparent',
-    padding: 0,
-  },
   btnPos: {
     position: 'absolute',
     bottom: 0,
@@ -34,7 +23,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#009966',
   },
   pickView: {
-    height: 200,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -60,7 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 2,
+    marginBottom: 1,
   },
   itemLast: {
     marginBottom: 0,
