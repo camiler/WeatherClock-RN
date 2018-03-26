@@ -23,7 +23,7 @@ class BackJobAlarm {
       backgroundSchedule.period = PEROID;
       BackgroundJob.schedule(backgroundSchedule);
     }
-    //alarmNotifData.fire_date = moment().add(30, 's');
+
     ReactNativeAN.sendNotification(alarmNotifData);
   }
   setPeroid(peroid) {

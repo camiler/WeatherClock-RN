@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   instructions: {
     textAlign: 'center',
@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     width: 100,
-    height: 200,
   },
   textInput: {
     height: 40,
@@ -35,8 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#009966',
   },
   pickView: {
-    marginTop: 50,
-    width: 300,
     height: 200,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -55,16 +52,22 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
   },
-  switch: {
+  item: {
     backgroundColor: '#fff',
-    height: 40,
-    width: 300,
+    height: 60,
+    width: '100%',
+    padding: 20,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 40,
-    borderRadius: 6,
-  }
+    marginBottom: 2,
+  },
+  itemLast: {
+    marginBottom: 0,
+  },
+  itemFirst: {
+    marginTop: 20,
+  },
 });
 
 export default styles;
