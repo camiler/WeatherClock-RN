@@ -34,11 +34,8 @@ const styles = StyleSheet.create({
   modalBtn: {
     paddingTop: 10,
     paddingBottom: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'transparent',
+    borderTopColor: '#ccc',
+    borderTopWidth: 1,
   },
   item: {
     backgroundColor: '#fff',
