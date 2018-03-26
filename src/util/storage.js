@@ -7,12 +7,11 @@ const setData = (key, data = {}) => {
 const getData = (key) => {
   return new Promise((resolve, reject) => {
     AsyncStorage.getItem(key, (err, result) => {
-      if (err) {
-        reject(err)
+      console.log(err, result);
+      if (err || !result) {
+        return reject(err)
       }
-      if (result) {
-        resolve(JSON.parse(result));
-      }
+      resolve(JSON.parse(result));
     })
   })
 }

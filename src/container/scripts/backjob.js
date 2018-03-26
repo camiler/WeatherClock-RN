@@ -14,7 +14,6 @@ class BackJobAlarm {
       period: 60000,
       allowExecutionInForeground: true
     }
-    this.initJob();
     this.register();
   }
   resetScheduleAndAlarm() {
@@ -26,8 +25,8 @@ class BackJobAlarm {
 
     ReactNativeAN.sendNotification(alarmNotifData);
   }
-  setPeroid(peroid) {
-    this.backgroundSchedule.period = peroid;
+  setPeriod(period) {
+    this.backgroundSchedule.period = period;
   }
   closeSchedule() {
     BackgroundJob.cancel({jobKey: 'pm2.5clock'});
@@ -50,6 +49,7 @@ class BackJobAlarm {
     };
   }
   register() {
+    this.initJob();
     BackgroundJob.register(this.backgroundJob);
   }
   getCurrentAqi() {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import PropTypes from 'prop-types';
 import {Modal, View, Picker, Text, TouchableHighlight, ToastAndroid, Switch, Slider} from 'react-native';
 import {Button} from '../components/';
 import {commonStyles, colors} from '../config/styles'
@@ -13,7 +12,7 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '80',
+      text: 75,
       hour: '07',
       minute: '10',
       modalVisible: false,
@@ -24,22 +23,20 @@ export default class Home extends Component {
 
   componentWillMount() {
     getData('clockData').then((data) => {
-      this.jobAlarm = new BackJobAlarm({...data});
       const {aqi_max: text, clockHour: hour, clockMinute: minute, open} = data;
+      this.jobAlarm = new BackJobAlarm({aqi_max: text, clockHour: hour, clockMinute: minute});
       this.setState({
         text, hour, minute, open
       })
     }, () => {
-      const {text: aqi_max, hour: clockHour, minute: clockMinute, open} = this.state;
-      if (open) {
-        this.jobAlarm = new BackJobAlarm({aqi_max, clockHour, clockMinute});
-      }
+      const {text: aqi_max, hour: clockHour, minute: clockMinute} = this.state;
+      this.jobAlarm = new BackJobAlarm({aqi_max, clockHour, clockMinute});
     });
   }
 
-  navigate = () => {
-    const { navigate } = this.props.navigation;
-    navigate('Weather')
+  componentDidUpdate() {
+    const {text: aqi_max, hour: clockHour, minute: clockMinute} = this.state;
+    this.jobAlarm = new BackJobAlarm({aqi_max, clockHour, clockMinute});
   }
 
   confirm = () => {
@@ -51,7 +48,7 @@ export default class Home extends Component {
       let diff = scheduleTime.diff(now);
       diff = diff < 0 ? PEROID + diff : diff;
 
-      this.jobAlarm.setPeroid(diff);
+      this.jobAlarm.setPeriod(diff);
       this.jobAlarm.schedule();
 
       setData('clockData', {clockHour: hour, clockMinute: minute, aqi_max: text, open});
@@ -135,8 +132,8 @@ export default class Home extends Component {
         <View style={[styles.item, styles.itemFirst]}>
           <Text style={[commonStyles.textCenter, commonStyles.font16]}>AQI最大值({text})</Text>
           <Slider
-            style={{width: 240, margin: 0}}
-            maximumValue={120}
+            style={{width: 150}}
+            maximumValue={150}
             minimumValue={0}
             step={1}
             value={Number(text)}
@@ -170,13 +167,6 @@ export default class Home extends Component {
     );
   }
 }
-/**
- *
- * @type {{navigation: *}}
- */
-Home.propTypes = {
-  navigation: PropTypes.object
-};
 
 Home.navigationOptions = {
   title: 'AQI闹钟设置',
