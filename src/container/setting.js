@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import {Modal, View, Picker, Text, TouchableHighlight, ToastAndroid, Switch, Slider} from 'react-native';
+import {Modal, View, Picker, Text, TouchableHighlight, ToastAndroid, Switch, Slider, Platform} from 'react-native';
 import {Button} from '../components/';
 import {commonStyles, colors} from '../config/styles'
 import styles from './setting-style';
@@ -24,13 +24,13 @@ export default class Home extends Component {
   componentWillMount() {
     getData('clockData').then((data) => {
       const {aqi_max: text, clockHour: hour, clockMinute: minute, open} = data;
-      this.jobAlarm = new BackJobAlarm({aqi_max: text, clockHour: hour, clockMinute: minute});
+      // this.jobAlarm = new BackJobAlarm({aqi_max: text, clockHour: hour, clockMinute: minute});
       this.setState({
         text, hour, minute, open
       })
     }, () => {
-      const {text: aqi_max, hour: clockHour, minute: clockMinute} = this.state;
-      this.jobAlarm = new BackJobAlarm({aqi_max, clockHour, clockMinute});
+      // const {text: aqi_max, hour: clockHour, minute: clockMinute} = this.state;
+      // this.jobAlarm = new BackJobAlarm({aqi_max, clockHour, clockMinute});
     });
   }
 
@@ -41,6 +41,7 @@ export default class Home extends Component {
 
   confirm = () => {
     const {hour, minute, text, open} = this.state;
+    this.jobAlarm.register();
     if (text) {
       const scheduleTime = moment().hour(parseInt(hour, 10)).minute(parseInt(minute, 10)).second(0);
       const now = moment(new Date());
@@ -105,6 +106,27 @@ export default class Home extends Component {
 
   render() {
     const {text, hour, minute, modalVisible, open} = this.state;
+
+    const pickerView = () => {
+      return (
+        <View style={styles.pickView}>
+          <Picker
+            style={styles.picker}
+            prompt="请选择闹钟响起时间"
+            selectedValue={hour}
+            onValueChange={this.pickHour}>
+            {this.renderNumber(24)}
+          </Picker>
+          <Picker
+            style={styles.picker}
+            prompt="请选择闹钟响起时间"
+            selectedValue={minute}
+            onValueChange={this.pickMinute}>
+            {this.renderNumber(60)}
+          </Picker>
+        </View>
+      )
+    };
     return (
       <View style={[commonStyles.container, styles.container]}>
         <Modal
@@ -139,27 +161,17 @@ export default class Home extends Component {
             value={Number(text)}
             onSlidingComplete={this.textChange}/>
         </View>
-        <View style={[styles.item]}>
-          <Text style={[commonStyles.textCenter, commonStyles.font16]}>闹钟提醒时间</Text>
-          <View style={styles.pickView}>
-            <View style={styles.picker}>
-              <Picker
-                prompt="请选择闹钟响起时间"
-                selectedValue={hour}
-                onValueChange={this.pickHour}>
-                {this.renderNumber(24)}
-              </Picker>
-            </View>
-            <View style={styles.picker}>
-              <Picker
-                prompt="请选择闹钟响起时间"
-                selectedValue={minute}
-                onValueChange={this.pickMinute}>
-                {this.renderNumber(60)}
-              </Picker>
-            </View>
+        {Platform.OS === 'ios' ? (
+          <View style={{width: '100%'}}>
+            <Text style={[styles.iosAlertText, commonStyles.font16]}>闹钟提醒时间(请选择)</Text>
+            {pickerView()}
           </View>
-        </View>
+        ) : (
+          <View style={[styles.item]}>
+            <Text style={[commonStyles.textCenter, commonStyles.font16]}>闹钟提醒时间</Text>
+            {pickerView()}
+          </View>
+        )}
         <View style={styles.btnPos}>
           <Button text="确定" onPress={this.confirm} btnTouchStyle={styles.setBtnTouch} textStyle={commonStyles.textCenter}/>
         </View>

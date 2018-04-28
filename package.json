@@ -12,6 +12,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "ajv": "^6.4.0",
+    "body-parser": "^1.18.2",
+    "boom": "^7.2.0",
     "es6-promise": "^4.2.4",
     "immutable": "^3.8.2",
     "moment": "^2.21.0",

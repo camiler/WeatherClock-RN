@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     width: 100,
+    height: 60,
   },
   btnPos: {
     position: 'absolute',
@@ -53,6 +54,14 @@ const styles = StyleSheet.create({
   itemFirst: {
     marginTop: 20,
   },
+  iosAlertText: {
+    backgroundColor: '#fff',
+    height: 60,
+    width: '100%',
+    padding: 20,
+    textAlign: 'left',
+    marginTop: 20,
+  }
 });
 
 export default styles;

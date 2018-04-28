@@ -14,7 +14,7 @@ class BackJobAlarm {
       period: 60000,
       allowExecutionInForeground: true
     }
-    this.register();
+    this.initJob();
   }
   resetScheduleAndAlarm() {
     const backgroundSchedule = this.backgroundSchedule;
@@ -49,7 +49,6 @@ class BackJobAlarm {
     };
   }
   register() {
-    this.initJob();
     BackgroundJob.register(this.backgroundJob);
   }
   getCurrentAqi() {
